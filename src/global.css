@@ -1,0 +1,90 @@
+@font-face {
+  font-family: "sf pro";
+  src: url("/fonts/sf-pro.ttf") format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  background-color: rgb(255, 255, 255);
+  color: rgb(0, 0, 0);
+  font-family: "sf pro";
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+}
+::-webkit-scrollbar {
+  background-color: #161616;
+  height: 7px;
+  width: 7px;
+}
+::-webkit-scrollbar-thumb {
+  border-radius: 100px;
+  background-color: #818181;
+}
+
+.cy_header {
+  background-color: #ffffff;
+  color: #000;
+  height: 10vh;
+  width: 100vw;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-inline:5%;
+}
+
+.cy_nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+
+.a_n_btn {
+  border: 1px solid #32323240;
+  border-radius: 100px;
+  background-color: rgb(255, 255, 255);
+  color: #000;
+  padding: 5px 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.a_n_btn p {
+  font-size: 13px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+}
+
+.n_link {
+  color: #000;
+  text-decoration: none;
+}
+
+.nv_div {
+  background-color: #000;
+  height: 20px;
+  width: 1px;
+}
+
+.cy_main {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
