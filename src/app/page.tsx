@@ -87,7 +87,7 @@ export default function CypherNote() {
         </div>
       ))}
 
-      <div className="cy_note">
+      {/* <div className="cy_note">
         <div className="cy_note_write">
           <div className="cy_note_title">
             <h3>Hello there</h3>
@@ -129,7 +129,7 @@ export default function CypherNote() {
             draggable="false"
           />
         </div>
-      </div>
+      </div> */}
     </div>
   );
 }
