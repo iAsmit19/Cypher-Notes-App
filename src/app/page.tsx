@@ -53,7 +53,7 @@ export default function CypherNote() {
 
   return (
     <div className="cy_main_cont">
-      {/* {error && <p style={{ color: "red" }}>{error}</p>}
+      {error && <p style={{ color: "red" }}>{error}</p>}
 
       {notes.map((note: Note) => (
         <div className="cy_note" key={note._id}>
@@ -85,7 +85,7 @@ export default function CypherNote() {
             />
           </div>
         </div>
-      ))} */}
+      ))}
 
       <div className="cy_note">
         <div className="cy_note_write">
