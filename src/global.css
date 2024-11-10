@@ -1,6 +1,6 @@
 @font-face {
   font-family: "sf pro";
-  src: url("/fonts/sf-pro.ttf") format('truetype');
+  src: url("/fonts/sf-pro.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
 }
@@ -16,7 +16,7 @@ body {
   background-color: rgb(255, 255, 255);
   color: rgb(0, 0, 0);
   font-family: "sf pro";
-  height: 100%;
+  min-height: 100%;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -40,7 +40,9 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-inline:5%;
+  padding-inline: 5%;
+  user-select: none;
+  position: fixed;
 }
 
 .cy_nav {
@@ -49,7 +51,6 @@ body {
   align-items: center;
   gap: 20px;
 }
-
 
 .a_n_btn {
   border: 1px solid #32323240;
@@ -72,8 +73,40 @@ body {
 }
 
 .n_link {
-  color: #000;
+  color: #515151;
   text-decoration: none;
+  transition: all ease-in-out 300ms;
+  position: relative;
+  cursor: pointer;
+}
+
+.n_link::before {
+  content: "";
+  background-color: #000;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 0%;
+  height: 1px;
+  transition: all ease-in-out 300ms;
+}
+
+.n_link:hover::before {
+  width: 100%;
+}
+
+.n_link:hover {
+  color: #000;
+}
+
+.cy_nav_el {
+  font-size: 1rem;
+  font-weight: 800;
+}
+
+.cy_archive {
+  color: #7c7c7c !important;
+  text-decoration: line-through;
 }
 
 .nv_div {
@@ -84,7 +117,186 @@ body {
 
 .cy_main {
   height: 100%;
+  width: 100%;
+  margin-top: 10vh;
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.cy_main_cont {
+  height: 100%;
+  min-width: 80%;
+  width: auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  grid-auto-rows: 250px;
+  justify-items: center;
+  align-items: start;
+  row-gap: 20px;
+  column-gap: 20px;
+  padding: 40px 60px;
+}
+
+@media screen and (max-width: 739px) {
+  .cy_main_cont {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+.cy_note {
+  border: 1px solid #cdcdcdbd;
+  border-radius: 7px;
+  padding: 24px;
+  max-height: 370px;
+  min-height: 200px;
+  width: 350px;
+  box-shadow: 4px 4px 5px 0px #dcdcdc63;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: start;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all ease-in-out 300ms;
+}
+
+.cy_note:hover {
+  border: 1px solid #a9a9a9bd;
+  box-shadow: 4px 4px 5px 0px #dcdcdcb6;
+}
+
+.cy_note_write {
+  height: auto;
+  width: 100%;
+}
+
+.cy_note_title {
+  padding: 3px 2px;
+}
+
+.cy_note_title h3 {
+  font-size: 24px;
+}
+
+.cy_note_div {
+  background-color: #bbbbbb6c;
+  height: 2px;
+  width: 100%;
+  align-self: center;
+}
+
+.cy_note_content {
+  padding: 15px 2px;
+}
+
+.cy_note_content p {
+  color: #191919;
+  font-size: 16px;
+  font-weight: 200;
+}
+
+.cy_note_time {
+  height: 30px;
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: end;
+  gap: 13px;
+}
+
+.cy_note_time p {
+  color: #292929;
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.cy_add_panel {
+  border-top: 1px solid #9f9f9f99;
+  background-color: transparent;
+  height: 100%;
+  width: 100%;
+  margin-top: 10vh;
+  /* padding: 30px; */
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.cy_add_cont {
+  /* border: 1px solid #cdcdcdbd;
+  border-radius: 14px; */
+  border-inline: 1px solid #cdcdcdbd;
+  border-bottom: 1px solid #cdcdcdbd;
+  border-bottom-left-radius: 14px;
+  border-bottom-right-radius: 14px;
+  background: #ffffffc9;
+  position: fixed;
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  height: 300px;
+  width: 600px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.cy_add_inputs {
+  /* background-color: #cacaca; */
+  height: 80%;
+  width: 100%;
+  padding: 24px;
+}
+
+.cy_add_title {
+  outline: none;
+  border: none;
+  background-color: transparent;
+  color: #303030;
+  height: 20%;
+  width: 100%;
+  margin-bottom: 10px;
+  padding-inline: 10px;
+  font-family: "sf pro";
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.cy_input_div {
+  background-color: #cdcdcda1;
+  height: 2px;
+  width: 100%;
+}
+
+.cy_add_content {
+  outline: none;
+  border: none;
+  background: transparent;
+  color: #303030;
+  height: 70%;
+  width: 100%;
+  margin-top: 10px;
+  padding-inline: 10px;
+  font-family: "sf pro";
+  font-size: 16px;
+  font-weight: 200;
+  resize: none;
+}
+
+.cy_add_div {
+  background-color: #cdcdcdbd;
+  height: 1px;
+  width: 100%;
+}
+
+.cy_add_feature {
+  height: 10%;
+  width: 100%;
 }

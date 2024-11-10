@@ -40,7 +40,18 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "No data provided." }, { status: 400 });
     }
 
-    const result = await db.collection("notes").insertOne(data);
+    // Adding a timestamp
+    const noteWithTimestamp = {
+      ...data,
+      // createdAt: new Date(),
+      day: new Date().getDate(),
+      month: new Date().getMonth(),
+      year: new Date().getFullYear(),
+      hours: new Date().getHours(),
+      mins: new Date().getMinutes(),
+    };
+
+    const result = await db.collection("notes").insertOne(noteWithTimestamp);
 
     const newNote = await db
       .collection("notes")

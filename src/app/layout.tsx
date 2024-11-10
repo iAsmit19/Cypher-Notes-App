@@ -1,6 +1,5 @@
 import "@/global.css";
-import Image from "next/image";
-import Link from "next/link";
+import Header from "./components/Header";
 
 export const metadata = {
   title: "Cypher Notes | Space for your thoughts",
@@ -15,33 +14,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <header className="cy_header">
-          <Image
-            src="/cypher_logo.svg"
-            alt=""
-            height={30}
-            width={100}
-            draggable={"false"}
-          />
-          <nav className="cy_nav">
-            <div className="a_n_btn">
-              <p>
-                <span>
-                  <Image src={"/add_icon.svg"} alt="" height={12} width={12} />
-                </span>
-                Add Note
-              </p>
-            </div>
-            <div className="nv_div"></div>
-            <Link href="/" className="n_link">
-              Notes
-            </Link>
-            <div className="nv_div"></div>
-            <Link href="/archive" className="n_link">
-              Archive
-            </Link>
-          </nav>
-        </header>
+        <Header />
         <main className="cy_main">{children}</main>
       </body>
     </html>
