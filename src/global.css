@@ -209,6 +209,7 @@ body {
 }
 
 .cy_note_time {
+  color: #b32b2b;
   height: 40px;
   width: 100%;
   display: flex;

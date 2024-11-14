@@ -21,7 +21,7 @@ export default function CypherNote() {
       "December",
     ];
 
-    return months[parseInt(monthNumber) - 1];
+    return months[parseInt(monthNumber)];
   }
 
   // Type of the Note
@@ -74,7 +74,8 @@ export default function CypherNote() {
                   ? "Today"
                   : `${getMonthName(note.month)}, ${note.day}`}
                 &nbsp;|&nbsp;
-                {note.hours}:{note.mins}
+                {parseInt(note.hours) < 10 ? `0${note.hours}` : note.hours}:
+                {parseInt(note.mins) < 10 ? `0${note.mins}` : note.mins}
               </p>
               <Image
                 src="/arrow.svg"
@@ -87,50 +88,6 @@ export default function CypherNote() {
           </div>
         </div>
       ))}
-
-      {/* <div className="cy_note">
-        <div className="cy_note_write">
-          <div className="cy_note_title">
-            <h3>Hello there</h3>
-          </div>
-          <div className="cy_note_div"></div>
-          <div className="cy_note_content">
-            <p>This is a whole description damnnnn</p>
-          </div>
-        </div>
-        <div className="cy_note_time">
-          <p>Today | 10:43</p>
-          <Image
-            src="/arrow.svg"
-            alt=""
-            height={14}
-            width={14}
-            draggable="false"
-          />
-        </div>
-      </div>
-
-      <div className="cy_note">
-        <div className="cy_note_write">
-          <div className="cy_note_title">
-            <h3>Hello there</h3>
-          </div>
-          <div className="cy_note_div"></div>
-          <div className="cy_note_content">
-            <p>This is a whole description damnnnn</p>
-          </div>
-        </div>
-        <div className="cy_note_time">
-          <p>Today | 10:43</p>
-          <Image
-            src="/arrow.svg"
-            alt=""
-            height={14}
-            width={14}
-            draggable="false"
-          />
-        </div>
-      </div> */}
     </div>
   );
 }
