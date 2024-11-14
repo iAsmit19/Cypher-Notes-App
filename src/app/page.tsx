@@ -37,10 +37,15 @@ export default function CypherNote() {
     mins: string;
   }
 
-  const { notes } = useAddNote();
-
   // Getting current date
   const todayDateGetter = new Date();
+
+  // Function to delete a note
+  const { notes, deleteNote } = useAddNote();
+
+  const handleDelete = async (id: string) => {
+    await deleteNote(id);
+  };
 
   return (
     <div className="cy_main_cont">
@@ -56,7 +61,9 @@ export default function CypherNote() {
             </div>
           </div>
           <div className="cy_note_time">
-            <div className="cy_note_del">Delete</div>
+            <div className="cy_note_del" onClick={() => handleDelete(note._id)}>
+              <p>Delete</p>
+            </div>
             <div className="cy_time">
               <p>
                 {note.day.toString() === todayDateGetter.getDate().toString() &&

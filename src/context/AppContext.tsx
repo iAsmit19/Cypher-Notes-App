@@ -24,6 +24,7 @@ interface AppContextType {
     title: string;
     content: string;
   }) => Promise<void>;
+  deleteNote: (id: string) => Promise<void>;
 }
 
 const AppContext = createContext<AppContextType | undefined>(undefined);
@@ -102,9 +103,37 @@ export function AddNoteProvider({ children }: { children: ReactNode }) {
     fetchNotes();
   }, []);
 
+  // Deleting notes
+  const deleteNote = async (id: string) => {
+    try {
+      const response = await fetch("/api", {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ id }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to delete the note");
+      }
+
+      setNotes((prevNotes) => prevNotes.filter((note) => note._id !== id));
+    } catch (error) {
+      console.error("Error while deleting the note.", error);
+    }
+  };
+
   return (
     <AppContext.Provider
-      value={{ isPanelOpen, togglePanel, notes, fetchNotes, handleAddNote }}
+      value={{
+        isPanelOpen,
+        togglePanel,
+        notes,
+        fetchNotes,
+        handleAddNote,
+        deleteNote,
+      }}
     >
       {children}
     </AppContext.Provider>
