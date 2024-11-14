@@ -17,6 +17,7 @@ export async function GET() {
 
     return NextResponse.json(notes);
   } catch (error) {
+    // Catching errors
     console.log("Error fetching the notes: ", error);
 
     return NextResponse.json(
@@ -31,34 +32,46 @@ export async function GET() {
 // Add a New Note
 export async function POST(request: Request) {
   try {
+    //  Connect to MongoDB
     const client: MongoClient = await clientPromise;
     const db: Db = client.db("cypher-notes");
 
+    // Catching the Request that contains the new note
     const data = await request.json();
 
-    if (!data || Object.keys(data).length === 0) {
-      return NextResponse.json({ error: "No data provided." }, { status: 400 });
+    // Checking if the Request contains the data or not aka Validation
+    const { title, content } = data;
+    if (!title || !content) {
+      return NextResponse.json(
+        { error: "Title and Content are required..." },
+        { status: 400 }
+      );
     }
 
-    // Adding a timestamp
+    const now = new Date();
+
+    // Adding the time functionality
     const noteWithTimestamp = {
       ...data,
-      // createdAt: new Date(),
-      day: new Date().getDate(),
-      month: new Date().getMonth(),
-      year: new Date().getFullYear(),
-      hours: new Date().getHours(),
-      mins: new Date().getMinutes(),
+      createdAt: now,
+      day: now.getDate(),
+      month: now.getMonth(),
+      year: now.getFullYear(),
+      hours: now.getHours(),
+      mins: now.getMinutes(),
     };
 
+    // Inserting the New Note received from the request along with the timestamp
     const result = await db.collection("notes").insertOne(noteWithTimestamp);
 
+    // Checking if the New Note was successfully added
     const newNote = await db
       .collection("notes")
       .findOne({ _id: result.insertedId });
 
     return NextResponse.json(newNote, { status: 201 });
   } catch (error) {
+    // Catching errors
     console.log("Faced an error", error);
 
     return NextResponse.json(
@@ -75,13 +88,14 @@ export async function POST(request: Request) {
 // Edit a Note
 export async function PUT(request: Request) {
   try {
+    // Connect to MongoDB
     const client: MongoClient = await clientPromise;
     const db: Db = client.db("cypher-notes");
 
-    // Parse the Request Body
+    // Parsing into the Request
     const { id, ...updatedData } = await request.json();
 
-    // Validate the Input
+    // Validating the Input
     if (!id || Object.keys(updatedData).length === 0) {
       return NextResponse.json(
         {
@@ -91,7 +105,7 @@ export async function PUT(request: Request) {
       );
     }
 
-    // Perform the Update
+    // Inserting the Updated Note into the database
     const result = await db
       .collection("notes")
       .updateOne({ _id: new ObjectId(id) }, { $set: updatedData });
@@ -104,11 +118,13 @@ export async function PUT(request: Request) {
       );
     }
 
+    // Returning the success response
     return NextResponse.json(
       { message: "Note has been updated successfully.", updatedData },
       { status: 200 }
     );
   } catch (error) {
+    // Catching errors
     console.log("Error occurred while updating", error);
 
     return NextResponse.json(
@@ -121,12 +137,14 @@ export async function PUT(request: Request) {
 // Delete a Note
 export async function DELETE(request: Request) {
   try {
+    // Connecting to MongoDB
     const client: MongoClient = await clientPromise;
     const db: Db = client.db("cypher-notes");
 
     // Grabbing the id from the request
     const { id } = await request.json();
 
+    // Validating the request
     if (!id) {
       return NextResponse.json(
         { error: "Invalid request, no ID provided." },
@@ -134,6 +152,7 @@ export async function DELETE(request: Request) {
       );
     }
 
+    // Deleting the note from the database using the provided id
     const result = await db
       .collection("notes")
       .deleteOne({ _id: new ObjectId(id) });
@@ -150,6 +169,7 @@ export async function DELETE(request: Request) {
       { status: 200 }
     );
   } catch (error) {
+    // Catching errors
     console.log("Error while deleting notes : ", error);
 
     return NextResponse.json({ error: "Error occurred : " }, { status: 500 });

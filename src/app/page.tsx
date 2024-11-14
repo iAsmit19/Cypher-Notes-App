@@ -1,35 +1,30 @@
 "use client";
 
+import { useAddNote } from "@/context/AppContext";
 import Image from "next/image";
-import { useEffect, useState } from "react";
 
 export default function CypherNote() {
-  const [notes, setNotes] = useState([]);
-  const [error, setError] = useState("");
+  // Function to convert the numerical month into a alphabetic month
+  function getMonthName(monthNumber: string) {
+    const months = [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December",
+    ];
 
-  useEffect(() => {
-    const fetchNotes = async () => {
-      try {
-        const response = await fetch("/api");
+    return months[parseInt(monthNumber) - 1];
+  }
 
-        if (!response.ok) {
-          throw new Error("Failed to fetch notes");
-        }
-
-        const data = await response.json();
-        setNotes(data);
-      } catch (error: unknown) {
-        if (error instanceof Error) {
-          setError(error.message);
-        } else {
-          setError("Unexpected error occurred.");
-        }
-      }
-    };
-
-    fetchNotes();
-  }, []);
-
+  // Type of the Note
   interface Note {
     _id: string;
     title: string;
@@ -42,19 +37,13 @@ export default function CypherNote() {
     mins: string;
   }
 
-  const todayDateGetter = new Date();
+  const { notes } = useAddNote();
 
-  // const todayDate =
-  //   todayDateGetter.getDate() +
-  //   "-" +
-  //   todayDateGetter.getMonth() +
-  //   "-" +
-  //   todayDateGetter.getFullYear();
+  // Getting current date
+  const todayDateGetter = new Date();
 
   return (
     <div className="cy_main_cont">
-      {error && <p style={{ color: "red" }}>{error}</p>}
-
       {notes.map((note: Note) => (
         <div className="cy_note" key={note._id}>
           <div className="cy_note_write">
@@ -67,22 +56,27 @@ export default function CypherNote() {
             </div>
           </div>
           <div className="cy_note_time">
-            <p>
-              {note.day.toString() === todayDateGetter.getDate().toString() &&
-              note.month.toString() === todayDateGetter.getMonth().toString() &&
-              note.year.toString() === todayDateGetter.getFullYear().toString()
-                ? "Today"
-                : "No"}
-              &nbsp;|&nbsp;
-              {note.hours}:{note.mins}
-            </p>
-            <Image
-              src="/arrow.svg"
-              alt=""
-              height={14}
-              width={14}
-              draggable="false"
-            />
+            <div className="cy_note_del">Delete</div>
+            <div className="cy_time">
+              <p>
+                {note.day.toString() === todayDateGetter.getDate().toString() &&
+                note.month.toString() ===
+                  todayDateGetter.getMonth().toString() &&
+                note.year.toString() ===
+                  todayDateGetter.getFullYear().toString()
+                  ? "Today"
+                  : `${getMonthName(note.month)}, ${note.day}`}
+                &nbsp;|&nbsp;
+                {note.hours}:{note.mins}
+              </p>
+              <Image
+                src="/arrow.svg"
+                alt=""
+                height={14}
+                width={14}
+                draggable="false"
+              />
+            </div>
           </div>
         </div>
       ))}

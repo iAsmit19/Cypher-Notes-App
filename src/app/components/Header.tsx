@@ -2,14 +2,13 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import React, { useState } from "react";
+import { useAddNote } from "@/context/AppContext";
 import AddPanel from "./AddPanel";
 
 export function Header() {
-  const [isAddPanelVisible, setAddPanelVisible] = useState(false);
-  function addNoteHandler() {
-    setAddPanelVisible((prev) => !prev);
-  }
+  // Using Global State to toggle the Add New Note Panel
+  const { isPanelOpen, togglePanel } = useAddNote();
+
   return (
     <header className="cy_header">
       <Image
@@ -20,7 +19,7 @@ export function Header() {
         draggable={"false"}
       />
       <nav className="cy_nav">
-        <div className="a_n_btn" onClick={addNoteHandler}>
+        <div className="a_n_btn" onClick={togglePanel}>
           <p className="cy_nav_el">
             <span>
               <Image src={"/add_icon.svg"} alt="" height={12} width={12} />
@@ -38,7 +37,7 @@ export function Header() {
         </Link>
       </nav>
 
-      {isAddPanelVisible ? <AddPanel /> : null}
+      {isPanelOpen ? <AddPanel /> : null}
     </header>
   );
 }
