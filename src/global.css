@@ -135,6 +135,7 @@ body {
   grid-auto-rows: 200px;
   grid-auto-flow: dense;
   gap: 20px;
+  row-gap: 60px;
   column-gap: 20px;
   padding: 40px;
   padding-bottom: 100px;
@@ -159,6 +160,7 @@ body {
   max-height: 370px;
   min-height: 200px;
   /* width: 350px; */
+  height: 100%;
   width: 100%;
   box-shadow: 4px 4px 5px 0px #dcdcdc23;
   display: flex;
@@ -198,7 +200,7 @@ body {
 }
 
 .cy_note:nth-child(even) {
-  margin-top: 60px;
+  margin-top: 30px;
 }
 
 .cy_note_write {
