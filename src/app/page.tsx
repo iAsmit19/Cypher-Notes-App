@@ -2,7 +2,6 @@
 
 import { useAddNote } from "@/context/AppContext";
 import Image from "next/image";
-import { useState } from "react";
 
 export default function CypherNote() {
   // Function to convert the numerical month into a alphabetic month
