@@ -14,8 +14,8 @@ export function Header() {
       <Image
         src="/cypher_logo.svg"
         alt=""
-        height={30}
-        width={100}
+        height={25}
+        width={80}
         draggable={"false"}
       />
       <nav className="cy_nav">

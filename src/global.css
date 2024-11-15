@@ -34,10 +34,12 @@ body {
 
 .cy_header {
   border-bottom: 1px solid #9f9f9f99;
-  background-color: #ffffff;
+  background-color: #ffffff8a;
   color: #000;
   height: 10vh;
   width: 100vw;
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -177,7 +179,7 @@ body {
 }
 
 .cy_note:focus-within {
-  border: 2px solid #a8a7a7bd;
+  border: 1px solid #a8a7a7bd;
   animation: shake 300ms ease-in-out;
 }
 
@@ -319,6 +321,35 @@ body {
   align-items: center;
   /* overflow: hidden; */
   z-index: 2;
+}
+
+@media screen and (max-width: 391px) and (max-height: 845px) {
+  .a_n_btn {
+    padding: 7.5px 15px;
+  }
+
+  .n_link {
+    display: none;
+  }
+
+  .nv_div {
+    display: none;
+  }
+
+  .cy_note {
+    margin: 0;
+  }
+
+  .cy_note:nth-child(even) {
+    margin-top: 0px;
+  }
+
+  .cy_add_cont {
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    height: 1000px;
+    width: 100vw;
+  }
 }
 
 .cy_add_inputs {
