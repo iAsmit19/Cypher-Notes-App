@@ -208,6 +208,19 @@ body {
   font-weight: 200;
 }
 
+.cy_note_title[contenteditable],
+.cy_note_content[contenteditable] {
+  border: 2px solid transparent;
+  border-radius: 7px;
+  padding: 5px;
+}
+
+.cy_note_title[contenteditable]:focus,
+.cy_note_content[contenteditable]:focus {
+  border-color: #848484;
+  outline: none;
+}
+
 .cy_note_time {
   color: #b32b2b;
   height: 40px;

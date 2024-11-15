@@ -25,6 +25,10 @@ interface AppContextType {
     content: string;
   }) => Promise<void>;
   deleteNote: (id: string) => Promise<void>;
+  updateNote: (
+    id: string,
+    updatedData: { [key: string]: string }
+  ) => Promise<void>;
 }
 
 const AppContext = createContext<AppContextType | undefined>(undefined);
@@ -101,6 +105,10 @@ export function AddNoteProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     fetchNotes();
+
+    setInterval(() => {
+      fetchNotes();
+    }, 300000);
   }, []);
 
   // Deleting notes
@@ -124,6 +132,34 @@ export function AddNoteProvider({ children }: { children: ReactNode }) {
     }
   };
 
+  // Editing notes
+  const updateNote = async (
+    id: string,
+    updatedNote: { [key: string]: string }
+  ) => {
+    try {
+      const response = await fetch("/api", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ id, ...updatedNote }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to update the note");
+      }
+
+      setNotes((prevNotes) =>
+        prevNotes.map((note) =>
+          note._id === id ? { ...note, ...updateNote } : note
+        )
+      );
+    } catch (error) {
+      console.error("Error while updating the note.", error);
+    }
+  };
+
   return (
     <AppContext.Provider
       value={{
@@ -133,6 +169,7 @@ export function AddNoteProvider({ children }: { children: ReactNode }) {
         fetchNotes,
         handleAddNote,
         deleteNote,
+        updateNote,
       }}
     >
       {children}
