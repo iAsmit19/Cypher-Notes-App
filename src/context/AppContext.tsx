@@ -143,7 +143,7 @@ export function AddNoteProvider({ children }: { children: ReactNode }) {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ id, ...updatedNote }),
+        body: JSON.stringify({ id, ...updatedNote}),
       });
 
       if (!response.ok) {
