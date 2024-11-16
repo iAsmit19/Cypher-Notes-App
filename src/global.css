@@ -438,6 +438,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  pointer-events: none;
   opacity: 0;
   transition: all ease-in-out 200ms;
 }
